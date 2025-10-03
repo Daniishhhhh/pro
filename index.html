@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Login</title>
+<style>
+  /* Your existing styles ... Can add falling animations CSS here for after-login page */
+  body {
+    margin:0; height:100vh;
+    background: linear-gradient(135deg, #7b1fa2, #e91e63);
+    font-family: Arial, sans-serif;
+    display: flex; justify-content: center; align-items: center;
+    overflow: hidden; color: white;
+  }
+  .container {
+    background: rgba(255,255,255,0.15);
+    padding: 2em;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    backdrop-filter: blur(8px);
+  }
+  input {
+    padding: 0.6em 1em;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    margin-bottom: 1em;
+  }
+  button {
+    background: #e91e63;
+    border: none;
+    padding: 0.7em 1.5em;
+    font-size: 1.2em;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #ad1457;
+  }
+  #result {
+    margin-top: 1em;
+    font-weight: bold;
+  }
+
+  /* Falling animation CSS */
+  @keyframes floatDown {
+    0% { opacity: 1; transform: translateY(-50px) rotate(0deg); }
+    100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+  }
+  .falling-flower, .falling-heart-red, .falling-heart-purple {
+    position: fixed;
+    top: -40px;
+    width: 30px;
+    height: 30px;
+    pointer-events: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.85;
+    animation-name: floatDown;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+    filter: drop-shadow(0 0 6px rgba(255, 105, 180, 0.7));
+    will-change: transform, opacity;
+    z-index: 1000;
+  }
+  .falling-flower {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNDggNDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTI0IDRhNyA3IDAgMCAwLTcgN2MwIDcuMyAxIDEzIDE3IDE3IDcgMyA5IDguNSA4IDEzeiIgZmlsbD0icmVkIi8+PC9zdmc+');
+  }
+  .falling-heart-red {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSJyZWQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkPSJNMTI4IDM2YTM5LjY0IDM5LjY0IDAgMCAwLTExIDU1Ljc1bDI0MSAzMjBhNDEgNDEgMCAwIDAgNTkuIDEuNzVsMjQxLTMxOS4zNWEzOS4yOCAzOS4yOCAwIDAgMC0xMC4wNi01Ny40M0wyNTYgMTc5IDIyMSA4OGExMyAxMyAwIDAgMC0xMC0yM2gtNSAxeiIvPjwvc3ZnPg==');
+  }
+  .falling-heart-purple {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNzIxZGE1IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkPSJNMTI4IDM2YTM5LjY0IDM5LjY0IDAgMCAwLTExIDU1Ljc1bDI0MSAzMjBhNDEgNDEgMCAwIDAgNTkuIDEuNzVsMjQxLTMxOS4zNWEzOS4yOCAzOS4yOCAwIDAgMC0xMC4wNi01Ny40M0wyNTYgMTc5IDIyMSA4OGExMyAxMyAwIDAgMC0xMC0yM2gtNSAxeiIvPjwvc3ZnPg==');
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Welcome, My Love</h2>
+    <form id="login-form">
+      <input type="text" id="code" placeholder="Enter Your Name" autocomplete="off" />
+      <br />
+      <button type="submit">Login</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function createFlower() {
+      const flower = document.createElement('div');
+      flower.classList.add('falling-flower');
+      flower.style.left = Math.random() * 100 + 'vw';
+      flower.style.animationDuration = (4 + Math.random() * 4) + 's';
+      flower.style.opacity = Math.random() * 0.6 + 0.4;
+      document.body.appendChild(flower);
+      flower.addEventListener('animationend', () => flower.remove());
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      if (Math.random() > 0.5) {
+        heart.classList.add('falling-heart-purple');
+      } else {
+        heart.classList.add('falling-heart-red');
+      }
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (3 + Math.random() * 4) + 's';
+      heart.style.opacity = Math.random() * 0.7 + 0.3;
+      document.body.appendChild(heart);
+      heart.addEventListener('animationend', () => heart.remove());
+    }
+
+    let flowerInterval, heartInterval;
+
+    function startFallingAnimation() {
+      if (flowerInterval) clearInterval(flowerInterval);
+      if (heartInterval) clearInterval(heartInterval);
+
+      flowerInterval = setInterval(createFlower, 350);
+      heartInterval = setInterval(createHeart, 500);
+
+      setTimeout(() => {
+        clearInterval(flowerInterval);
+        clearInterval(heartInterval);
+      }, 10000);
+    }
+
+    window.onload = () => {
+      startFallingAnimation();
+    };
+
+    const form = document.getElementById('login-form');
+    const codeInput = document.getElementById('code');
+    const resultDiv = document.getElementById('result');
+    const secretCode = "Sona";
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const val = codeInput.value.trim();
+      if (!val) {
+        resultDiv.style.color = 'yellow';
+        resultDiv.textContent = 'Please enter your name.';
+        return;
+      }
+      if (val.toLowerCase() === secretCode.toLowerCase()) {
+        resultDiv.style.color = 'lightgreen';
+        resultDiv.textContent = 'Welcome, Sona! Redirecting...';
+        setTimeout(() => {
+          window.location.href = 'main.html';
+        }, 2000);
+      } else {
+        resultDiv.style.color = 'pink';
+        resultDiv.textContent = 'Naa Tum meri baby nhi hoo kon hooo tum kaha hai meri Sona 💔';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+body {
+	font-family: Arial, sans-serif;
+}
+
+#login-form {
+	width: 50%;
+	margin: 40px auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#code {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 20px;
+	border: 1px solid #ccc;
+}
+
+#submit-btn {
+	background-color: #4CAF50;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+#submit-btn:hover {
+	background-color: #3e8e41;
+}
+
+#result {
+	color: #666;
+	margin-top: 20px;
+}
+@keyframes floatDown {
+  0% {
+    opacity: 1;
+    transform: translateY(-50px) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100vh) rotate(720deg);
+  }
+}
+
+.falling-flower, .falling-heart-red, .falling-heart-purple {
+  position: fixed;
+  top: -40px;
+  width: 30px;
+  height: 30px;
+  pointer-events: none;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.85;
+  animation-name: floatDown;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  filter: drop-shadow(0 0 6px rgba(255, 105, 180, 0.7));
+  will-change: transform, opacity;
+  z-index: 1000;
+}
+
+.falling-flower {
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNDggNDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTI0IDRhNyA3IDAgMCAwLTcgN2MwIDcuMyAxIDEzIDE3IDE3IDcgMyA5IDguNSA4IDEzeiIgZmlsbD0icmVkIi8+PC9zdmc+');
+}
+
+.falling-heart-red {
+  background-image: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSJyZWQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkPSJNMTI4IDM2YTM5LjY0IDM5LjY0IDAgMCAwLTExIDU1Ljc1bDI0MSAzMjBhNDEgNDEgMCAwIDAgNTkuIDEuNzVsMjQxLTMxOS4zNWEzOS4yOCAzOS4yOCAwIDAgMC0xMC4wNi01Ny40M0wyNTYgMTc5IDIyMSA4OGExMyAxMyAwIDAgMC0xMC0yM2gtNSAxeiIvPjwvc3ZnPg==');
+}
+
+.falling-heart-purple {
+  background-image: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNzIxZGE1IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkPSJNMTI4IDM2YTM5LjY0IDM5LjY0IDAgMCAwLTExIDU1Ljc1bDI0MSAzMjBhNDEgNDEgMCAwIDAgNTkuIDEuNzVsMjQxLTMxOS4zNWEzOS4yOCAzOS4yOCAwIDAgMC0xMC4wNi01Ny40M0wyNTYgMTc5IDIyMSA4OGExMyAxMyAwIDAgMC0xMC0yM2gtNSAxeiIvPjwvc3ZnPg==');
+}
